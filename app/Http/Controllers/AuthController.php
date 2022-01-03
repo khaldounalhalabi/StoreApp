@@ -27,7 +27,7 @@ class AuthController extends Controller
             'home_number' => 'digits:7|nullable' , 
             'facebook_url' => 'string|required' , 
             'birthdate' => 'date|before:-15 years' ,
-            'name'=>'required|max:55|min:3|string',
+            'name'=>'required|max:55|min:3',
         ];
 
         $validator = Validator::make($request->all() , $rules) ; 
