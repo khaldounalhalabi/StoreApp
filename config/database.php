@@ -3,7 +3,7 @@
 use Illuminate\Support\Str;
 
 
-$DATABASE_URL=parse_url("//uaodyzzuglhswm:f3e63e876b4eb6ffde66a69e7cc2942d639d0a98ad8107e5ab262c7219efc92d@ec2-54-164-241-193.compute-1.amazonaws.com:5432/d5jmfh2osra85q");
+$DATABASE_URL=parse_url("uaodyzzuglhswm:f3e63e876b4eb6ffde66a69e7cc2942d639d0a98ad8107e5ab262c7219efc92d@ec2-54-164-241-193.compute-1.amazonaws.com:5432/d5jmfh2osra85q");
 
 return [
 
