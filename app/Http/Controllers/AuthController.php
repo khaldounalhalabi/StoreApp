@@ -19,14 +19,15 @@ class AuthController extends Controller
    {
         $rules = 
         [
-            //'name'=>'max:55|min:3|string',
+            
             'email'=>'email|required|unique:users',
             'password'=>['required' , 'confirmed' , Password::min(8)->letters()->mixedCase()->numbers()->symbols()] , 
             'profile_image_url' =>  ' string|nullable' , 
             'phone_number' => 'digits:10|required' , 
             'home_number' => 'digits:7|nullable' , 
             'facebook_url' => 'string|required' , 
-            'birthdate' => 'date|before:-15 years'
+            'birthdate' => 'date|before:-15 years' ,
+            'name'=>'required|max:55|min:3|string',
         ];
 
         $validator = Validator::make($request->all() , $rules) ; 
@@ -40,7 +41,7 @@ class AuthController extends Controller
             $RegisterData['password'] = bcrypt($request->password);
 
             $user = new User ; 
-            //$user->name = $RegisterData['name'] ; 
+            $user->name = $RegisterData['name'] ; 
             $user->email = $RegisterData['email'] ;
             $user->password = $RegisterData['password'] ; 
             $user->profile_image_url = $RegisterData['profile_image_url'] ; 
