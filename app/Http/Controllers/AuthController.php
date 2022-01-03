@@ -19,7 +19,7 @@ class AuthController extends Controller
    {
         $rules = 
         [
-            'name'=>'max:55|min:3|string',
+            'name'=>'required|max:55|min:3|string',
             'email'=>'email|required|unique:users',
             'password'=>['required' , 'confirmed' , Password::min(8)->letters()->mixedCase()->numbers()->symbols()] , 
             'profile_image_url' =>  ' string|nullable' , 
