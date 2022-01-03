@@ -19,7 +19,7 @@ class AuthController extends Controller
    {
         $rules = 
         [
-            'name'=>'max:55|min:3|string',
+            //'name'=>'max:55|min:3|string',
             'email'=>'email|required|unique:users',
             'password'=>['required' , 'confirmed' , Password::min(8)->letters()->mixedCase()->numbers()->symbols()] , 
             'profile_image_url' =>  ' string|nullable' , 
@@ -40,7 +40,7 @@ class AuthController extends Controller
             $RegisterData['password'] = bcrypt($request->password);
 
             $user = new User ; 
-            $user->name = $RegisterData['name'] ; 
+            //$user->name = $RegisterData['name'] ; 
             $user->email = $RegisterData['email'] ;
             $user->password = $RegisterData['password'] ; 
             $user->profile_image_url = $RegisterData['profile_image_url'] ; 
