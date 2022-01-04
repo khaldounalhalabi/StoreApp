@@ -113,25 +113,7 @@ Route::middleware(['auth:api'])->group(
          * you should send the product id within the request
          */ 
         Route::get('/products/show_comments' ,'App\Http\Controllers\ProductController@show_comments' ) ; 
-
-
-
-        //like api
         
-        //add like
-        Route::post('/products/add_like/{id}','App\Http\Controllers\ProductController@add_like' ) ; 
-
-        //show likes
-        Route::get('/products/show_likes/{id}','App\Http\Controllers\ProductController@show_likes' ) ;
-
-
-        //views API
-
-        //add view
-        Route::post('/products/add_view/{id}','App\Http\Controllers\ProductController@add_view' ) ;
-
-        //show views
-        Route::get('/products/show_views/{id}','App\Http\Controllers\ProductController@show_views' ) ;
     }
 ); 
 
