@@ -17,9 +17,9 @@ class CatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() // return all categories from database as json
     {    
-        $categories = Cat::orderBy("name")->get() ; 
+        $categories = Cat::orderBy("name")->get() ; //get all categories from the database and store it in categories variable
         return response()->json([$categories , 'message'=> 'data has been retrieved']) ; 
     }
 
@@ -33,7 +33,7 @@ class CatController extends Controller
     {
         $rules = 
         [
-            'name' => 'required|unique:cats|min:3|max:25' , 
+            'name' => 'required|unique:cats|min:3|max:25' , //rule for entering the name
         ] ; 
         $validator = Validator::make($request->all() , $rules) ; 
         

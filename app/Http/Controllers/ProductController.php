@@ -26,14 +26,14 @@ class ProductController extends Controller
     {
        
         
-        $rules = 
+        $rules =                                          //rules if the user chose to use filter
         [
             'name' => 'nullable|string' , 
             'category' =>'nullable|string|exists:cats' , 
             'price_from' =>'nullable|numeric' , 
             'price_to'=>'nullable|numeric' , 
-            'expiration_date_from' => 'nullable|date' , 
-            'expiration_date_to' => 'nullable|date' , 
+            'expiration_date_from' => 'nullable|date' , //format is : Y-M-D ex  : 2022-1-4
+            'expiration_date_to' => 'nullable|date' ,  //format is : Y-M-D ex  : 2022-1-4
         ];
 
         $validator = Validator::make($request->all() , $rules) ;
@@ -140,9 +140,9 @@ class ProductController extends Controller
             $product->discount1 = $data['discount1'] ; 
             $product->discount2 = $data['discount2'] ;
             $product->discount3 = $data['discount3'] ;
-            $product->price1 = $product->price - ($product->price *($data['discount1']/100))  ; 
-            $product->price2 = $product->price - ($product->price *($data['discount2']/100)) ;  
-            $product->price3 = $product->price - ($product->price *($data['discount3']/100)) ;  
+            $product->price1 = $product->price - ($product->price *($data['discount1']/100))  ; //price after first discount
+            $product->price2 = $product->price - ($product->price *($data['discount2']/100)) ;  //price after second discount
+            $product->price3 = $product->price - ($product->price *($data['discount3']/100)) ;  //price after third discount
             $product->owner = Auth::user() ; 
             $product->save() ; 
 
@@ -260,7 +260,7 @@ class ProductController extends Controller
             $comment = new Comment ;  
             $comment->comment = $request->input('comment');
             $comment->user_id = Auth::id() ; 
-            $comment->product_id = Auth::id() ; 
+            $comment->product_id = $id ; 
             $comment->save() ;
             return response()->json(['message'=>'comment has been added successfully']) ;  
         } 
@@ -309,45 +309,6 @@ class ProductController extends Controller
         $comments = Product::find($product_id)->comments ; 
         return response()->json(['message'=>'data has been retieved' , $comments]) ; 
     }
-
-
-
-
-    public function add_like($id)
-    {
-        $product = Product::find($id) ; 
-        $likes = intval($product->likes) ;
-        $likes = $likes + 1 ; 
-        $product->likes = $likes ;   
-        return response()->json(['message'=>'like has been added' , $likes] ) ; 
-
-    }
-
-
-    public function show_likes(Request $request , $id)
-    {
-        $product = Product::find($id) ; 
-        return response()->json(['message'=>'data has been retieved' , 'likes'=>$product->likes]) ; 
-    }
     
-
-
-
-    public function add_view(Request $request , $id)
-    {
-        $product = Product::find($id) ; 
-        $product->views += 1 ; 
-        return response()->json(['message'=>'view has been added']) ; 
-    }
-
-
-
-    public function show_views(Request $request , $id)
-    {
-        $product = Product::find($id) ; 
-        return response()->json(['message'=>'data has been retieved' , 'views'=>$product->views]) ;
-    }
-
-
 
 }
