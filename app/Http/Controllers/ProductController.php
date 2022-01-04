@@ -305,6 +305,8 @@ class ProductController extends Controller
                 $comment->save() ; 
                 return response()->json(['message'=>'comment has been updated']) ; 
             }
+
+            else return response()->json(['message'=>'you can not edit other users comments']) ; 
         }
         catch(\Exception $e)
         {
