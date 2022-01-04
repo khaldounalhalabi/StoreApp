@@ -275,8 +275,15 @@ class ProductController extends Controller
     { 
         $comment_id = $request->input('comment_id') ;
         $product_id = $request->input('product_id') ;  
-        $comment = Product::find($product_id)->comments()->find($comment_id)->delete() ; 
-        return response()->json(['message'=>'comment has been deleted successfully']) ; 
+        $comment = Product::find($product_id)->comments()->find($comment_id);
+        if($comment->user_id = Auth::id())
+        {
+            $comment->delete() ;
+            return response()->json(['message'=>'comment has been deleted successfully']) ; 
+        } 
+
+        else return response()->json(['message'=>'you can not delete other users comments ']) ; 
+         
     }
 
     public function edit_comment(Request $request )
@@ -291,10 +298,13 @@ class ProductController extends Controller
             $comment = new Comment ; 
             $comment_id = $request->input('comment_id') ; 
             $product_id = $request->input('product_id') ; 
-            $comment = Product::find($product_id)->comments()->find($comment_id) ; 
-            $comment->comment = $request->input('comment') ; 
-            $comment->save() ; 
-            return response()->json(['message'=>'comment has been updated']) ; 
+            $comment = Product::find($product_id)->comments()->find($comment_id) ;
+            if($comment->user_id = Auth::id())  
+            {
+                $comment->comment = $request->input('comment') ; 
+                $comment->save() ; 
+                return response()->json(['message'=>'comment has been updated']) ; 
+            }
         }
         catch(\Exception $e)
         {
